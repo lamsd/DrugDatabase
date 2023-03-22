@@ -7,11 +7,12 @@ import math
 import time
 
 
-def download_data(path_out, name_path):
+def download_data(path_image, path_out, name_path):
     """
     Checking data with python
 
     """
+    response = requests.get(path_image, stream=True)
     with open(f"{path_out}/{name_path}", 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
@@ -39,9 +40,7 @@ def crawpling_data(name_out, name_number=1 , check_sytem=True):
             if os.path.exists(f"{path_out}/{name_path}"):
                 continue
             if path_image.endswith((".jpg",".png", ".webp", "jpeg")) &  path_image.startswith("https://"):
-                response = requests.get(path_image, stream=True)
-                name_path = path_image.split("/")[-1]
-                download_data(path_out, name_path)
+                download_data(path_image, path_out, name_path)
         # time.sleep(1)
 
 def crawpling_data_v1(name_out, name_number=1):
