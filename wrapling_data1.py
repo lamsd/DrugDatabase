@@ -7,19 +7,15 @@ import math
 import time
 
 
-def download_data(path_image, path_out):
+def download_data(path_out, name_path):
     """
     Checking data with python
 
     """
-    
-    if path_image.endswith((".jpg",".png", ".webp", "jpeg")) &  path_image.startswith("https://"):
-        response = requests.get(path_image, stream=True)
-        name_path = path_image.split("/")[-1]
-        with open(f"{path_out}/{name_path}", 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
+    with open(f"{path_out}/{name_path}", 'wb') as out_file:
+        shutil.copyfileobj(response.raw, out_file)
 
-def crawpling_data(name_out, name_number=1):
+def crawpling_data(name_out, name_number=1 , check_sytem=True):
     url = f'https://www.medicine.com/pill-finder/search?imprint=&shape={name_number}&color='
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -39,8 +35,14 @@ def crawpling_data(name_out, name_number=1):
             continue
         for image in images:
             path_image = image['src']
-            download_data(path_image, path_out)
-        time.sleep(1)
+            name_path = path_image.split("/")[-1]
+            if os.path.exists(f"{path_out}/{name_path}"):
+                continue
+            if path_image.endswith((".jpg",".png", ".webp", "jpeg")) &  path_image.startswith("https://"):
+                response = requests.get(path_image, stream=True)
+                name_path = path_image.split("/")[-1]
+                download_data(path_out, name_path)
+        # time.sleep(1)
 
 def crawpling_data_v1(name_out, name_number=1):
     url = f'https://www.medicine.com/pill-finder/search?imprint=&shape={name_number}&color=&page=1'
@@ -63,7 +65,7 @@ def crawpling_data_v1(name_out, name_number=1):
             # download_data(path_image, path_out)
 
 if __name__ == "__main__":
-    url = f'https://www.medicine.com/pill-finder/search?imprint=&shape=2&color='
+    url = f'https://www.medicine.com/pill-finder/search?imprint=&shape=1&color='
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     images = soup.find_all('select', {"name":"shape"})
@@ -71,4 +73,4 @@ if __name__ == "__main__":
         index  = i["value"]
         name_index = i.get_text()
         if index != "":
-            crawpling_data(name_index, index)
+            crawpling_data(name_index, name_number = index)
