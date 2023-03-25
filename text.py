@@ -11,9 +11,9 @@ name_image_background = "image_convert3.jpg"
 # name_image_out = "rocket_pillow_paste.png"
 path_folder_output = "Output"
 
-ratio = 0.7
+ratio = 0.5
 
-list_columns_name =["label_name", "bbox_x", "bbox_y", "bbox_width", "bbox_height", "image_name", "image_width", "image_height"] 
+list_columns_name =["label_name", "bbox_x", "bbox_y", "bbox_width", "bbox_height", "image_name", "image_width", "image_height", "label_shape"] 
 dict_columns_value = {x:[] for x in list_columns_name}
 list_position_background = []
 df = pd.read_csv(path_file_csv)
@@ -25,9 +25,11 @@ path_result = "Result"
 name_image = "images"
 name_label = "labels"
 
-shutil.rmtree(path_result)
+if os.path.exists(path_result):
+    shutil.rmtree(path_result)
 
 for name in tqdm(os.listdir(path_folder_output)):
+    dict_columns_value = {x:[] for x in list_columns_name}
     if not os.path.exists(os.path.join(path_result, name, name_image )):
         os.makedirs(os.path.join(path_result, name, name_image ))
         os.makedirs(os.path.join(path_result, name, name_label ))
@@ -51,12 +53,13 @@ for name in tqdm(os.listdir(path_folder_output)):
             imA = imA.convert("RGBA")
             w, h = imA.size
             back_im.paste(imA, (idx[0]-int(w/2), idx[1]-int(h/2)), imA)
-            back_im.save(f"{path_result}/{name}/{name_image}/{name_out}.png", quality=95, format="png")
             dict_columns_value["bbox_x"].append(idx[0]-int(w/2))
             dict_columns_value["bbox_y"].append(idx[1]-int(h/2))
             dict_columns_value["bbox_width"].append(w)
             dict_columns_value["bbox_height"].append(h)
             dict_columns_value["image_name"].append(f"{name_out}.png")
             dict_columns_value["image_width"].append(im1.size[0])
-            dict_columns_value["image_height"].append(im1.size[1])
+            dict_columns_value["image_height"].append(im1.size[1]) 
+            dict_columns_value["label_shape"].append(name)
+        back_im.save(f"{path_result}/{name}/{name_image}/{name_out}.png", quality=95, format="png")
     pd.DataFrame(dict_columns_value).to_csv(f"{path_result}/{name}/{name_label}/label_{name}.csv", index=False)
