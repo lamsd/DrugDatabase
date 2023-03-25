@@ -1,0 +1,16 @@
+label_name,bbox_x,bbox_y,bbox_width,bbox_height,image_name,image_width,image_height
+aC,119,89,69,115,image_convert3.jpg,600,501
+aC,203,86,73,113,image_convert3.jpg,600,501
+aC,288,85,73,116,image_convert3.jpg,600,501
+aC,374,85,71,113,image_convert3.jpg,600,501
+aC,458,82,69,116,image_convert3.jpg,600,501
+aC,121,215,69,115,image_convert3.jpg,600,501
+aC,206,213,70,115,image_convert3.jpg,600,501
+aC,291,214,72,114,image_convert3.jpg,600,501
+aC,378,210,68,117,image_convert3.jpg,600,501
+aC,462,210,67,117,image_convert3.jpg,600,501
+aC,127,368,68,112,image_convert3.jpg,600,501
+aC,209,366,71,114,image_convert3.jpg,600,501
+aC,295,366,66,113,image_convert3.jpg,600,501
+aC,378,363,69,113,image_convert3.jpg,600,501
+aC,465,366,64,109,image_convert3.jpg,600,501
