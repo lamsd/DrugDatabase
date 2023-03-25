@@ -11,7 +11,6 @@ def yolobbox2bbox(x,y,w,h):
     x2, y2 = x+w/2, y+h/2
     return x1, y1, x2, y2
 
- 
 def main():
     path_result = "Result" 
     name_label = "labels"
@@ -34,7 +33,7 @@ def main():
                     x, y, w, h = df["bbox_x"].iloc[i], df["bbox_y"].iloc[i], df["bbox_width"].iloc[i], df["bbox_height"].iloc[i]
                     x1, y1, x2, y2 = coco_to_yolo(x, y, w, h, image_w, image_h)
                     name_label_dir = df["label_shape"].iloc[i]
-                    name_text = df["image_name"].iloc[i].split(".")[0]
+                    name_text = df["image_name"].iloc[i].split(".png")[0]
                     with open(f"{path_result}/{name_label_dir}/{name_label}/{name_text}.txt", "+a") as f:
                         f.write(f"{d_nametonum[str(name_label_dir)]}\t{round(x1,5)}\t{round(y1,5)}\t{round(x2,5)}\t{round(y2,5)}\n")
                         f.close()  

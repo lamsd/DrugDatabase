@@ -24,6 +24,7 @@ def processing_insert(name_image_background,
     list_columns_name =["label_name", "bbox_x", "bbox_y", "bbox_width", "bbox_height", "image_name", "image_width", "image_height", "label_shape"] 
     dict_columns_value = {x:[] for x in list_columns_name}
     for name in tqdm(os.listdir(path_folder_output)):
+        dict_columns_value = {x:[] for x in list_columns_name}
         if not os.path.exists(os.path.join(path_result, name, name_image )):
             os.makedirs(os.path.join(path_result, name, name_image ))
             os.makedirs(os.path.join(path_result, name, name_label ))
@@ -50,7 +51,7 @@ def processing_insert(name_image_background,
                 dict_columns_value["bbox_y"].append(idx[1]-int(h/2))
                 dict_columns_value["bbox_width"].append(w)
                 dict_columns_value["bbox_height"].append(h)
-                dict_columns_value["image_name"].append(f"{name_out}.png")
+                dict_columns_value["image_name"].append(f"{name_backg}_{name_out}.png")
                 dict_columns_value["image_width"].append(im1.size[0])
                 dict_columns_value["image_height"].append(im1.size[1]) 
                 dict_columns_value["label_shape"].append(name)
