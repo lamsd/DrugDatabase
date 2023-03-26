@@ -59,7 +59,7 @@ def processing_insert(name_image_background,
         pd.DataFrame(dict_columns_value).to_csv(f"{path_result}/{name}/{name_label}/label_{name_backg}_{name}.csv", index=False)
 
 def background_folder(background_path, path_folder_output, path_result, name_image, name_label, ratio = 0.5):
-    for i in range(1, 5):
+    for i in range(1, 3):
         path_file_csv = f"{background_path}/image_convert{i}.csv"
         name_image_background = f"{background_path}/image_convert{i}.jpg"
         name_backg = f"image_convert{i}"
