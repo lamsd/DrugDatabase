@@ -83,7 +83,12 @@ def main():
     path_folder_output = "Output"
     background_path = "Background"
     remove_insertfolder(path_result, condition=True)
-    background_folder(background_path, path_folder_output, path_result, name_image, name_label, ratio = 0.5)
+    background_folder(background_path, 
+                      path_folder_output, 
+                      path_result, 
+                      name_image, 
+                      name_label, 
+                      ratio = 0.5)
 
 if __name__=="__main__":
     main()
